@@ -126,4 +126,5 @@ public class MainApp {
 
         return checkBalanceRecur(arr, pos + 1);
     }
+
 }
