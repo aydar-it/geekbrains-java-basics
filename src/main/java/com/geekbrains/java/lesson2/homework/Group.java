@@ -10,10 +10,18 @@ public class Group {
     }
 
     public void insertEmployee(Employee employee, int index) {
+        if (index < 0 || index > 9) {
+            System.out.println("Индекс должен быть от 0 до 9");
+            return;
+        }
         employees[index] = employee;
     }
 
     public void deleteEmployee(int index) {
+        if (index < 0 || index > 9) {
+            System.out.println("Индекс должен быть от 0 до 9");
+            return;
+        }
         employees[index] = null;
     }
 
