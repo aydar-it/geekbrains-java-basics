@@ -22,12 +22,12 @@ public class MainApp {
         }
 
         int sum = 0;
-        for (String[] strings : ar) {
-            for (String string : strings) {
+        for (int i = 0; i < ar.length; i++) {
+            for (int j = 0; j < ar[i].length; j++) {
                 try {
-                    sum += Integer.parseInt(string);
+                    sum += Integer.parseInt(ar[i][j]);
                 } catch (NumberFormatException e) {
-                    throw new MyArrayDataException();
+                    throw new MyArrayDataException(String.format("Incorrect data in [%d,%d]", i, j));
                 }
             }
         }
