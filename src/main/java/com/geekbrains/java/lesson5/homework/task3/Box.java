@@ -14,7 +14,7 @@ public class Box <T extends Fruit> {
         this.fruitBox = fruitBox;
     }
 
-    public <X extends Fruit> boolean compare(Box<X> box) {
+    public boolean compare(Box<?> box) {
         return this.getWeight() == box.getWeight();
     }
 
