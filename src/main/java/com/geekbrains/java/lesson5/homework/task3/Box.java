@@ -35,9 +35,6 @@ public class Box <T extends Fruit> {
         }
 
         fruitBox.forEach(box::addFruit);
-//        for (T fruit : fruitBox) {
-//            box.addFruit(fruit);
-//        }
         fruitBox.clear();
     }
 }
