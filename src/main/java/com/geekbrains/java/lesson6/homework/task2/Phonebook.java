@@ -1,4 +1,4 @@
-package com.geekbrains.java.lesson6.task2;
+package com.geekbrains.java.lesson6.homework.task2;
 
 import java.util.HashMap;
 import java.util.HashSet;
