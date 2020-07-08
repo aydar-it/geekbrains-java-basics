@@ -6,7 +6,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.stream.IntStream;
 
 public class MainApp {
-//  Time for ForkJoinPool: 558
+//  Time for ForkJoinPool: 33
 //  Time for one thread: 37
 //  Time for Stream: 55
 //  Time for ParallelStream: 19
@@ -54,7 +54,7 @@ public class MainApp {
     }
 
     private static void checkForkJoinPool(int[] data) {
-        Recursive demoRecursiveTask = new Recursive(data);
+        Recursive demoRecursiveTask = new Recursive(data, 0, data.length);
         long time = new Date().getTime();
         long result = ForkJoinPool.commonPool().invoke(demoRecursiveTask);
         System.out.println("Time for ForkJoinPool: " + (new Date().getTime() - time));
