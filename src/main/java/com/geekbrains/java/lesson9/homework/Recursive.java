@@ -29,9 +29,6 @@ public class Recursive extends RecursiveTask<Integer> {
             for (int i = 0; i < subtasks.size(); i++) {
                 newData[i] = subtasks.get(i).join();
             }
-//            for (int i = 0; i < subtasks.size(); i++) {
-//                newData[i] = subtasks.get(i).compute();
-//            }
             return new Recursive(newData, 0, newData.length).compute();
         }
     }
