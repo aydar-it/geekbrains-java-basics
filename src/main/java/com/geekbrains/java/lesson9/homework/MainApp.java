@@ -6,10 +6,10 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.stream.IntStream;
 
 public class MainApp {
-//    Time for ForkJoinPool: 966
-//Time for one thread: 252
-//Time for Stream: 59
-//Time for ParallelStream: 21
+//  Time for ForkJoinPool: 558
+//  Time for one thread: 37
+//  Time for Stream: 55
+//  Time for ParallelStream: 19
     public static void main(String[] args) {
         Random random = new Random();
         int[] data = new int[100_000_000];

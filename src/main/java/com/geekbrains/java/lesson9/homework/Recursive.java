@@ -15,7 +15,7 @@ public class Recursive extends RecursiveTask<Integer> {
 
     @Override
     protected Integer compute() {
-        if (data.length < 10_000) {
+        if (data.length < 10_000_000) {
             return getMaxInArray(data);
         } else {
             List<Recursive> subtasks = createSubtasks();
@@ -35,14 +35,9 @@ public class Recursive extends RecursiveTask<Integer> {
     }
 
     private List<Recursive> createSubtasks() {
-        int len;
-
-        len = data.length / 4;
         return new ArrayList<>(Arrays.asList(
-                new Recursive(Arrays.copyOfRange(data, 0, len)),
-                new Recursive(Arrays.copyOfRange(data, len, len * 2)),
-                new Recursive(Arrays.copyOfRange(data, len * 2, len * 3)),
-                new Recursive(Arrays.copyOfRange(data, len * 3, data.length))
+                new Recursive(Arrays.copyOfRange(data, 0, data.length / 2)),
+                new Recursive(Arrays.copyOfRange(data, data.length / 2, data.length))
         ));
     }
 
