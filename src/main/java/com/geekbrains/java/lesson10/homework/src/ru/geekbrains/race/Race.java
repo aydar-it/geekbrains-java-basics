@@ -7,16 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.Semaphore;
 
 public class Race {
-    public static final int COMPETITORS_COUNT = 4;
-    public static final CyclicBarrier READY = new CyclicBarrier(COMPETITORS_COUNT);
-    public static final CountDownLatch START = new CountDownLatch(COMPETITORS_COUNT);
-    public static final CountDownLatch START_SIGN = new CountDownLatch(1);
-    public static final CountDownLatch END_SIGN = new CountDownLatch(COMPETITORS_COUNT);
-    public static final Semaphore TUNNEL = new Semaphore(COMPETITORS_COUNT / 2);
-
+    public static final int COMPETITORS_COUNT = 5;
+    private final CyclicBarrier ready = new CyclicBarrier(COMPETITORS_COUNT);
+    private final CountDownLatch start = new CountDownLatch(COMPETITORS_COUNT);
+    private final CountDownLatch startSign = new CountDownLatch(1);
+    private final CountDownLatch endSign = new CountDownLatch(COMPETITORS_COUNT);
     private final List<Stage> stages;
 
     public List<Stage> getStages() { return stages; }
@@ -29,16 +26,16 @@ public class Race {
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Подготовка!!!");
         Car[] cars = new Car[COMPETITORS_COUNT];
         for (int i = 0; i < cars.length; i++) {
-            cars[i] = new Car(this, 20 + (int) (Math.random() * 10));
+            cars[i] = new Car(this, 20 + (int) (Math.random() * 10), ready, start, startSign, endSign);
         }
         for (int i = 0; i < cars.length; i++) {
             new Thread(cars[i]).start();
         }
         try {
-            START.await();
+            start.await();
             System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка началась!!!");
-            START_SIGN.countDown();
-            END_SIGN.await();
+            startSign.countDown();
+            endSign.await();
             System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка закончилась!!!");
         } catch (InterruptedException e) {
             e.printStackTrace();
