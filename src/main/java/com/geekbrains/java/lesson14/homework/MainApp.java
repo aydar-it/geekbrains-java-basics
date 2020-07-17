@@ -23,6 +23,9 @@ public class MainApp {
 
     //task1
     public static long countOfSubstrings(File file, byte[] bytes) throws IOException {
+        if (bytes.length == 0) {
+            return 0;
+        }
         try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
             byte[] src = in.readAllBytes();
             long counter = 0;
