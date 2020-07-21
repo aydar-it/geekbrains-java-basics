@@ -13,38 +13,39 @@ public class MainApp {
 
     //task1
     public static long countOfSubstrings(String filePath, byte[] bytes) throws IOException {
-        RandomAccessFile file = new RandomAccessFile(filePath, "r");
-        FileChannel channel = file.getChannel();
-        ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
-        long counter = 0;
-        int bytesRead = channel.read(buffer);
-        while (bytesRead != -1) {
-            buffer.flip();
-            boolean flag = true;
-            int i = 0;
-            if (buffer.limit() == buffer.capacity()) {
-                while (buffer.hasRemaining()) {
-                    if (bytes[i] != buffer.get()) {
-                        flag = false;
-                        break;
+        try (RandomAccessFile file = new RandomAccessFile(filePath, "r");
+             FileChannel channel = file.getChannel()){
+            ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
+            long counter = 0;
+            int bytesRead = channel.read(buffer);
+            while (bytesRead != -1) {
+                buffer.flip();
+                boolean flag = true;
+                int i = 0;
+                if (buffer.limit() == buffer.capacity()) {
+                    while (buffer.hasRemaining()) {
+                        if (bytes[i] != buffer.get()) {
+                            flag = false;
+                            break;
+                        }
+                        i++;
                     }
-                    i++;
+                } else {
+                    flag = false;
                 }
-            } else {
-                flag = false;
-            }
 
-            if (flag) {
-                counter++;
-                buffer.clear();
-            } else {
-                buffer.rewind();
-                buffer.get();
-                buffer.compact();
+                if (flag) {
+                    counter++;
+                    buffer.clear();
+                } else {
+                    buffer.rewind();
+                    buffer.get();
+                    buffer.compact();
+                }
+                bytesRead = channel.read(buffer);
             }
-            bytesRead = channel.read(buffer);
+            return counter;
         }
-        return counter;
     }
 
     //task2
